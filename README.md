@@ -68,15 +68,14 @@ QQ截图:某次的出错信息，看看就好
 # 踩过的坑
 
 
-1.爬URL的时候一开始没有在意，开了8线程，结果服务器短暂宕机，于是改为1线程。而爬信息内容时服务器情况好一些，开了2线程。还是建议尽量不要爬政府网站，有被查水表的风险
+1. 爬URL的时候一开始没有在意，开了8线程，结果服务器短暂宕机，于是改为1线程。而爬信息内容时服务器情况好一些，开了2线程。还是建议尽量不要爬政府网站，有被查水表的风险
 
 
-2.在网络情况不好时（如晚上8点以后），无论是爬链接还是爬内容，都会经常出现" Max retries exceeded with url "的错误，解决措施是增加延时，请求被拒绝时进行多次重试，参考 [https://segmentfault.com/a/1190000007480913?_ea=1359663](https://segmentfault.com/a/1190000007480913?_ea=1359663)
+2. 在网络情况不好时（如晚上8点以后），无论是爬链接还是爬内容，都会经常出现" Max retries exceeded with url "的错误，解决措施是增加延时，请求被拒绝时进行多次重试，参考 [https://segmentfault.com/a/1190000007480913?_ea=1359663](https://segmentfault.com/a/1190000007480913?_ea=1359663)
 
 
 
-3.
-`http://www.shandong.gov.cn/sdxxgk/publi/message/detail.do?identifier=ml_0302-04-2018-000163`
+3. `http://www.shandong.gov.cn/sdxxgk/publi/message/detail.do?identifier=ml_0302-04-2018-000163`
 
 在这个链接中碰到了网页中带有 base64 编码的图片，再用apparent\_encoding程序直接卡住，因为图片比较大，保存下来要412.7KB，这么大的base64串apparent\_encoding几乎是解析不动的。解决方法是修改获取HTML页面内容的函数，不使用r.apparen\_encoding
 
@@ -92,8 +91,7 @@ QQ截图:某次的出错信息，看看就好
 
 
 
-4.
-
+4.  
 	textpat = re.compile(r'p|span|ul')
     texts = infobody.findAll(textpat)
 
@@ -102,3 +100,7 @@ QQ截图:某次的出错信息，看看就好
 正文文本出现的位置在各网页中有所不同，有的网页文字在infobody下的p标签内，有的在span标签内，还有的直接出现在infobody内，其实可以直接对infobody直接getText()，不过可能会有杂数据，目前采用的是直接在大标签下直接getText。
 
 
+
+##--------------2019.4.1更新-------------------------------
+
+发现直接对infobody直接getText()再strip，只能对直接在infobody标签下的文本getText()，而不能对其子标签的文本进行去除空白符操作，造成回车符过多。 再次使用textpat那一种方案，但在正则里去掉span标签，再看看爬取的效果
