@@ -31,7 +31,7 @@ store.py:直接与数据库相连的若干操作
 
 mylog.py:多种日志记录函数
 
-dateop.py:日期比较函数
+dateop.py:日期比较函数（已包含在urldetect.py中，实际未使用）
 
 createDB.sql:建立数据表的SQL语句
 
