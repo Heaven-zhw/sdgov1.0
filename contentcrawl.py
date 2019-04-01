@@ -135,11 +135,11 @@ def get_page(viewHref):
             pubtime = pubtime.strip()
 
         # 通过正文标签提取正文
-        '''
+
         def getInfoByBody(soup, infobody, infotext):
             if infobody != None:
-                textpat = re.compile(r'p|span|ul') #span在p标签内文本会被提取提取两次
-                #textpat = re.compile(r'p|ul')
+                #textpat = re.compile(r'p|span|ul') #span在p标签内文本会被提取提取两次
+                textpat = re.compile(r'p|ul')
                 texts = infobody.findAll(textpat)
                 # 大部分情况都有p标签
                 for item in texts:
@@ -162,6 +162,7 @@ def get_page(viewHref):
                     infotext = infotext + infobody.getText().replace(u'\u3000', u' ').replace(u'\xa0', u' ').strip()
             return infotext
 
+        '''
         # 抓取正文内容
         infotext = ""
         infobody = soup.find('div', attrs={'style': 'align-content: center;'})
