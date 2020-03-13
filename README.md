@@ -101,6 +101,25 @@ QQ截图:某次的出错信息，看看就好
 
 
 
-##--------------2019.4.1更新-------------------------------
+## 2019.4.1更新
 
 发现直接对infobody直接getText()再strip，只能对直接在infobody标签下的文本getText()，而不能对其子标签的文本进行去除空白符操作，造成回车符过多。 再次使用textpat那一种方案，但在正则里去掉span标签，再看看爬取的效果
+
+
+
+## 2020.3.13更新
+
+山东省政务公开网站已经改版，原链接 http://www.shandong.gov.cn/sdxxgk/nest/xxgk/list.do已经不能访问，因此原爬虫不再有效。
+
+### 爬新页面的思路
+
+新的政务公开页面链接：http://www.shandong.gov.cn/col/col93622/index.html，该页面对信息类别做了分类，信息是AJAX动态加载的，需要找到实际的接口。
+
+利用开发者工具找到返回公开信息的实际链接为：http://www.shandong.gov.cn/module/xxgk/search.jsp?infotypeId=&vc_title=&vc_number=&area=，访问该链接需要使用POST方法，POST的表单字段中，infotypeId是信息类别，例如SD01是机构职能。
+
+访问下一页时，利用开发者工具找到的实际请求链接是：http://www.shandong.gov.cn/module/xxgk/search.jsp?texttype=&fbtime=&vc_all=&vc_filenumber=&vc_title=&vc_number=&currpage=2&sortfield=compaltedate:0,orderid:0&fields=&fieldConfigId=&hasNoPages=&infoCount=，currpage是页码数，POST的表单字段中，infotype和currpage是关键字段。
+
+可能有反爬措施，需要实验后才能得知。
+
+
+
